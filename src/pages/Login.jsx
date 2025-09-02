@@ -35,8 +35,8 @@ export default function Login() {
     }
 
     try {
-      const res = await axios.post(
-        `${API}/auth/login`,
+      const res = await http.post(
+        `/auth/login`,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
