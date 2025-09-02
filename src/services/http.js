@@ -9,7 +9,7 @@ function resolveBaseURL() {
 }
 
 const http = axios.create({
-  baseURL: resolveBaseURL(),
+  baseURL: "https://new-vapehubpos-backend.onrender.com"
 });
 http.interceptors.request.use((config) => {
   const tk = localStorage.getItem('accessToken');
