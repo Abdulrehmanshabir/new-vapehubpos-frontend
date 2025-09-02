@@ -5,7 +5,7 @@ import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
-import http from "../services/http";
+import axios from "axios";
 import { toast } from "react-toastify";
 
 // Use centralized axios instance with configured baseURL
@@ -50,7 +50,13 @@ export default function Register() {
     };
 
     try {
-      const res =  await http.post(`/auth/register`, payload, {
+      const raw = import.meta?.env?.VITE_API_URL;
+      const base = typeof raw === 'string' ? raw.trim().replace(/\/+$/, '') : '';
+      if (!base) {
+        toast.error("VITE_API_URL not set for frontend");
+        return;
+      }
+      const res = await axios.post(`${base}/auth/register`, payload, {
         headers: { "Content-Type": "application/json" },
       });
       // If your backend returns a token on register:
