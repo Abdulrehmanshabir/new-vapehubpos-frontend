@@ -6,8 +6,9 @@ import http from "../services/http";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from 'react-redux';
 
+import axios from "axios";
 // Use centralized axios instance with configured baseURL
-
+const API = import.meta.env.VITE_API_URL;
 export default function Dashboard() {
   const navigate = useNavigate();
   const [data, setData] = useState({ msg: "", luckyNumber: "" });
