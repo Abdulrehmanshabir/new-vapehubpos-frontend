@@ -50,7 +50,7 @@ export default function Register() {
     };
 
     try {
-      const res = await http.post(`${import.meta.env.VITE_API_URL}/auth/register`, payload, {
+      const res =  await axios.post(`${API}/auth/register`, payload, {
         headers: { "Content-Type": "application/json" },
       });
       // If your backend returns a token on register:
