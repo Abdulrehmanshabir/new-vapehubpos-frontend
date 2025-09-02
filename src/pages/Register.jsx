@@ -50,7 +50,7 @@ export default function Register() {
     };
 
     try {
-      const res =  await axios.post(`${API}/auth/register`, payload, {
+      const res =  await http.post(`/auth/register`, payload, {
         headers: { "Content-Type": "application/json" },
       });
       // If your backend returns a token on register:
