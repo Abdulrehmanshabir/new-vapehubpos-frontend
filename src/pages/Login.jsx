@@ -36,7 +36,7 @@ export default function Login() {
 
     try {
       const res = await http.post(
-        `/auth/login`,
+        `${import.meta.env.VITE_API_URL}/auth/login`,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
