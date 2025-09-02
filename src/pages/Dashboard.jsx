@@ -23,7 +23,7 @@ export default function Dashboard() {
   const fetchDashboard = async () => {
     if (!token) return; // guard
     try {
-      const res = await http.get(`${import.meta.env.VITE_API_URL}/auth/dashboard`, {
+      const res =await axios.get(`${API}/auth/dashboard`,  {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Expecting { message: "..."} or { msg, secret } depending on your controller
