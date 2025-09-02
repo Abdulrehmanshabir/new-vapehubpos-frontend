@@ -1,15 +1,26 @@
 import axios from 'axios';
 
-// Resolve API base URL strictly from env (no hardcoded fallback)
+// Resolve API base URL from env, with runtime override via localStorage
 function resolveBaseURL() {
-  const raw = import.meta?.env?.VITE_API_URL;
-  const val = typeof raw === 'string' ? raw.trim() : '';
-  const invalid = !val || val === 'undefined' || val === 'null' || val === '/';
+  let raw = import.meta?.env?.VITE_API_URL;
+  console.log('Raw VITE_API_URL:', raw);
+  console.log('import.meta.env.VITE_API_URL:', import.meta.env.VITE_API_URL);
+  let val = typeof raw === 'string' ? raw.trim() : '';
+  let invalid = !val || val === 'undefined' || val === 'null' || val === '/';
+  if (invalid) {
+    try {
+      const ls = localStorage.getItem('apiBaseUrl');
+      if (ls && typeof ls === 'string') {
+        val = ls.trim();
+        invalid = !val || val === 'undefined' || val === 'null' || val === '/';
+      }
+    } catch {}
+  }
   return invalid ? undefined : val.replace(/\/+$/, '');
 }
 
 const http = axios.create({
-  baseURL:resolveBaseURL(),
+  baseURL: resolveBaseURL(),
 });
 http.interceptors.request.use((config) => {
   const tk = localStorage.getItem('accessToken');
