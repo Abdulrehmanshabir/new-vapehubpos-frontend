@@ -9,7 +9,7 @@ function resolveBaseURL() {
 }
 
 const http = axios.create({
-  baseURL:import.meta.env.VITE_API_URL || 'https://new-vapehubpos-backend.onrender.com',
+  baseURL:resolveBaseURL(),
 });
 http.interceptors.request.use((config) => {
   const tk = localStorage.getItem('accessToken');
