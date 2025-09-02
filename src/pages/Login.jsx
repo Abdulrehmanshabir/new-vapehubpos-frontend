@@ -35,8 +35,8 @@ export default function Login() {
     }
 
     try {
-      const res = await http.post(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
+      const res = await axios.post(
+        `${API}/auth/login`,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
