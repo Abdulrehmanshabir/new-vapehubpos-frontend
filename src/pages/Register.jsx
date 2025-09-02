@@ -51,11 +51,14 @@ export default function Register() {
 
     try {
       const raw = import.meta?.env?.VITE_API_URL;
-      const base = typeof raw === 'string' ? raw.trim().replace(/\/+$/, '') : '';
-      if (!base) {
-        toast.error("VITE_API_URL not set for frontend");
-        return;
+      console.log('API URL:', raw);
+      console.log(import.meta.env.VITE_API_URL);
+      let base = typeof raw === 'string' ? raw.trim() : '';
+      if (!base || base === 'undefined' || base === 'null' || base === '/') {
+        try { const ls = localStorage.getItem('apiBaseUrl'); if (ls) base = ls.trim(); } catch {}
       }
+      base = base.replace(/\/+$/, '');
+      if (!base) { toast.error("VITE_API_URL not set for frontend"); return; }
       const res = await axios.post(`${base}/auth/register`, payload, {
         headers: { "Content-Type": "application/json" },
       });
