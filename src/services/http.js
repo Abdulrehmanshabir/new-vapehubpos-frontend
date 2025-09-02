@@ -2,14 +2,14 @@ import axios from 'axios';
 
 // Resolve API base URL strictly from env (no hardcoded fallback)
 function resolveBaseURL() {
-  console.log(const raw = import.meta?.env?.VITE_API_URL);
+  const raw = import.meta?.env?.VITE_API_URL;
   const val = typeof raw === 'string' ? raw.trim() : '';
   const invalid = !val || val === 'undefined' || val === 'null' || val === '/';
   return invalid ? undefined : val.replace(/\/+$/, '');
 }
 
 const http = axios.create({
-  console.log(baseURL:resolveBaseURL(),
+  baseURL:resolveBaseURL(),
 });
 http.interceptors.request.use((config) => {
   const tk = localStorage.getItem('accessToken');
